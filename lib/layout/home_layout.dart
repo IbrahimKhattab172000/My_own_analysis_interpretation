@@ -42,20 +42,20 @@ class HomeLayout extends StatelessWidget {
           Navigator.of(context).pop();
         }
       }, builder: (context, state) {
-        //*!Just to avoid the redundant
+        //*!Just to avoid the redundant code we made  AppCubit.get(context) = cubit
         AppCubit cubit = AppCubit.get(context);
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
             title: Text(cubit.titles[cubit.currentIndex]),
           ),
-          body:
-              // tasks!.isEmpty
-              //     ? Center(child: CircularProgressIndicator())
-              //     :
-              cubit.screens[cubit.currentIndex],
+          body: state is AppGetDatabaseLoadingState
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : cubit.screens[cubit.currentIndex],
           floatingActionButton: FloatingActionButton(
-            ///Here we toggle by {isBottomSheetShown}
+            //*Here we toggle by {isBottomSheetShown}
             onPressed: () {
               if (cubit.isBottomSheetShown) {
                 if (formKey.currentState!.validate()) {
@@ -68,18 +68,6 @@ class HomeLayout extends StatelessWidget {
                     date: dateController.text,
                     time: timeController.text,
                   );
-                  // .then((value) {
-                  //   //*I will tell u know why we used getDataFromDatabase() here again
-                  //   // getDataFromDatabase(database).then((value) {
-                  //   //   Navigator.of(context).pop();
-                  //   //   setState(() {
-                  //   //     tasks = value;
-                  //   //     isBottomSheetShown = false;
-                  //   //     fabIcon = Icons.edit;
-                  //   //   });
-                  //   //   print(tasks);
-                  //   // });
-                  // });
                 }
               } else {
                 //*therefore... we for sure should return the state of ture & the icon to add

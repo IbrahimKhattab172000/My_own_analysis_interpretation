@@ -48,6 +48,8 @@ class AppCubit extends Cubit<AppStates> {
   Database? database;
   List<Map>? tasks = [];
 
+//* create
+
   void createDatabase() {
     //*{var database} != {database} yasta, they kinda have the same data yet they are different
     openDatabase(
@@ -89,7 +91,7 @@ class AppCubit extends Cubit<AppStates> {
   }
   //*The End of void createDatabase() {} ///
 
-  //*Other helping methods down there=>
+  //*insert
 
   //*You may wonder why we didn't leave it "void" method
   //* and that because I want to be able to use .then((value) {}); up there where I call it
@@ -126,6 +128,8 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+//*Get data
+
   //!You're wondering why we put (database) inside => getDataFromDatabase(database) async {...
   //*Okay go to Abduallh_mansour course  episode 82 'get data from database' min 7
   //*first way
@@ -135,10 +139,23 @@ class AppCubit extends Cubit<AppStates> {
   // }
   //*Second way , which there is no big difference between the two btw
   Future<List<Map>> getDataFromDatabase(database) async {
+    //*Before we get our data we will emit this state AppGetDatabaseLoadingState(),
+    emit(AppGetDatabaseLoadingState());
+
     return await database!.rawQuery('SELECT * FROM tasks');
   }
 
-//*Bottom sheet stuff
+  //*update data
+
+  Future<int> updateData({
+    required String status,
+    required int id,
+  }) async {
+    return await database!.rawUpdate(
+        'UPDATE tasks SET status = ? WHERE name = ?', ['$status', '$id']);
+  }
+
+//*Bottom sheet stuff /////////////////////////
   bool isBottomSheetShown = false;
   IconData fabIcon = Icons.edit;
 
