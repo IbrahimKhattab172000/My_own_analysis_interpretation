@@ -66,22 +66,13 @@ class AppCubit extends Cubit<AppStates> {
           print("Error when creating table : ${error.toString()}");
         });
       },
-
       onOpen: (database) {
         print("database opened");
 
         //*This place number one where we get our data but we will use it there also
         //Go and check //? why
-        getDataFromDatabase(database).then((value) {
-          //*After we get our data we will place it in tasks
-          //*After that we will emit the state of getting our database
-          tasks = value;
-          print(tasks);
-          emit(AppGetDatabaseState());
-        });
+        getDataFromDatabase(database);
       },
-
-      //!Notice that .then() here belongs to openDatabase() method //focus
     ).then((value) {
       //*After we finish we will place it in datebase
       //*After that we will emit the state of creating database
@@ -115,13 +106,7 @@ class AppCubit extends Cubit<AppStates> {
 //? why using getDataFromDatabase here again?
 //*The answer is simple = Just to refresh the tasks "In other words" our data again
 //* after the user enters a new task
-        getDataFromDatabase(database).then((value) {
-          //*After we get our data we will place it in tasks
-          //*After that we will emit the state of getting our database
-          tasks = value;
-          print(tasks);
-          emit(AppGetDatabaseState());
-        });
+        getDataFromDatabase(database);
       }).catchError((error) {
         print("Error when inserting table : ${error.toString()}");
       });
@@ -132,27 +117,34 @@ class AppCubit extends Cubit<AppStates> {
 
   //!You're wondering why we put (database) inside => getDataFromDatabase(database) async {...
   //*Okay go to Abduallh_mansour course  episode 82 'get data from database' min 7
-  //*first way
-  //getDataFromDatabase(database) async {
-  //   List<Map> tasks = await database!.rawQuery('SELECT * FROM tasks');
-  //   print(tasks);
-  // }
-  //*Second way , which there is no big difference between the two btw
-  Future<List<Map>> getDataFromDatabase(database) async {
+
+  void getDataFromDatabase(database) async {
     //*Before we get our data we will emit this state AppGetDatabaseLoadingState(),
     emit(AppGetDatabaseLoadingState());
 
-    return await database!.rawQuery('SELECT * FROM tasks');
+    database!.rawQuery('SELECT * FROM tasks').then((value) {
+      //*After we get our data we will place it in tasks
+      //*After that we will emit the state of getting our database
+      tasks = value;
+      print(tasks);
+      emit(AppGetDatabaseState());
+    });
   }
 
   //*update data
 
-  Future<int> updateData({
+  void updateData({
     required String status,
     required int id,
   }) async {
-    return await database!.rawUpdate(
-        'UPDATE tasks SET status = ? WHERE name = ?', ['$status', '$id']);
+    database!.rawUpdate(
+      'UPDATE tasks SET status = ? WHERE id = ?',
+      ['$status', id],
+    ).then((value) {
+      emit(
+        AppUpdateDatabaseState(),
+      );
+    });
   }
 
 //*Bottom sheet stuff /////////////////////////

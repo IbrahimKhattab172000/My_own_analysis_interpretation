@@ -26,7 +26,8 @@ class _NewTasksScreenState extends State<NewTasksScreen> {
           //*Getting our tasks here
           var tasks = AppCubit.get(context).tasks;
           return ListView.separated(
-            itemBuilder: (context, index) => buildTaskItem(tasks![index]),
+            itemBuilder: (context, index) =>
+                buildTaskItem(tasks![index], context),
             separatorBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsetsDirectional.only(

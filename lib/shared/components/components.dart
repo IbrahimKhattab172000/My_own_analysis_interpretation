@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
 Widget defaultButton({
@@ -61,7 +62,7 @@ Widget defaultTextFormField({
       ),
     );
 
-Widget buildTaskItem(Map model) => Padding(
+Widget buildTaskItem(Map model, BuildContext context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
@@ -72,25 +73,49 @@ Widget buildTaskItem(Map model) => Padding(
           SizedBox(
             width: 20,
           ),
-          Column(
-            ///haha try it without mainAxisSize: MainAxisSize.min,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${model['title']}',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+          Expanded(
+            child: Column(
+              ///haha try it without mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${model['title']}',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                '${model['date']}',
-                style: TextStyle(
-                  color: Colors.grey,
+                Text(
+                  '${model['date']}',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          IconButton(
+            onPressed: () {
+              AppCubit.get(context).updateData(status: 'done', id: model['id']);
+            },
+            icon: Icon(
+              Icons.check_box,
+              color: Colors.green,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              AppCubit.get(context)
+                  .updateData(status: 'archived', id: model['id']);
+            },
+            icon: Icon(
+              Icons.archive,
+              color: Colors.grey,
+            ),
           ),
         ],
       ),
