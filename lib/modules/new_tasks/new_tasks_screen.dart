@@ -23,8 +23,8 @@ class _NewTasksScreenState extends State<NewTasksScreen> {
     return BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          //*Getting our tasks here
-          var tasks = AppCubit.get(context).tasks;
+          //*Getting our newTasks here
+          var tasks = AppCubit.get(context).newTasks;
           return ListView.separated(
             itemBuilder: (context, index) =>
                 buildTaskItem(tasks![index], context),

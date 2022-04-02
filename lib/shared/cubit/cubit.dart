@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, curly_braces_in_flow_control_structures
 
 import 'package:abdullah_mansour/modules/archived_tasks/archived_tasks_screen.dart';
 import 'package:abdullah_mansour/modules/done_tasks/done_tasks_screen.dart';
@@ -46,7 +46,9 @@ class AppCubit extends Cubit<AppStates> {
   ////* Database stuff
 
   Database? database;
-  List<Map>? tasks = [];
+  List<Map>? newTasks = [];
+  List<Map>? doneTasks = [];
+  List<Map>? archivedTasks = [];
 
 //* create
 
@@ -68,9 +70,6 @@ class AppCubit extends Cubit<AppStates> {
       },
       onOpen: (database) {
         print("database opened");
-
-        //*This place number one where we get our data but we will use it there also
-        //Go and check //? why
         getDataFromDatabase(database);
       },
     ).then((value) {
@@ -101,8 +100,6 @@ class AppCubit extends Cubit<AppStates> {
         //*After that we will emit the state of Inserting our data
         print("$value inserted successfully");
         emit(AppInsertDatabaseState());
-//?Hey you came from there right?
-//*I will tell u know why we used getDataFromDatabase() here again
 //? why using getDataFromDatabase here again?
 //*The answer is simple = Just to refresh the tasks "In other words" our data again
 //* after the user enters a new task
@@ -115,18 +112,32 @@ class AppCubit extends Cubit<AppStates> {
 
 //*Get data
 
-  //!You're wondering why we put (database) inside => getDataFromDatabase(database) async {...
-  //*Okay go to Abduallh_mansour course  episode 82 'get data from database' min 7
-
   void getDataFromDatabase(database) async {
+//!So important=> when we start out method we should eliminate everything from our lists
+//!.. cuz we use ".add" and it will add on the previous values | check vid 87 | min 18
+    newTasks = [];
+    doneTasks = [];
+    archivedTasks = [];
+
     //*Before we get our data we will emit this state AppGetDatabaseLoadingState(),
     emit(AppGetDatabaseLoadingState());
 
     database!.rawQuery('SELECT * FROM tasks').then((value) {
-      //*After we get our data we will place it in tasks
+      //***After we get our data we will place it in our lists according to its status
       //*After that we will emit the state of getting our database
-      tasks = value;
-      print(tasks);
+
+//! This forEach is so important cuz it analizes "value" which is our data...
+//!... then we add it to a specifc map according to its 'status'
+      value.forEach((element) {
+        print(element['status']);
+
+        if (element['status'] == 'new')
+          newTasks!.add(element);
+        else if (element['status'] == 'done')
+          doneTasks!.add(element);
+        else
+          archivedTasks!.add(element);
+      });
       emit(AppGetDatabaseState());
     });
   }
@@ -141,9 +152,9 @@ class AppCubit extends Cubit<AppStates> {
       'UPDATE tasks SET status = ? WHERE id = ?',
       ['$status', id],
     ).then((value) {
-      emit(
-        AppUpdateDatabaseState(),
-      );
+      //? why using get here => video #87 | min 18
+      getDataFromDatabase(database);
+      emit(AppUpdateDatabaseState());
     });
   }
 
