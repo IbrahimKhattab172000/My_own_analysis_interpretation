@@ -129,7 +129,7 @@ class AppCubit extends Cubit<AppStates> {
 //! This forEach is so important cuz it analizes "value" which is our data...
 //!... then we add it to a specifc map according to its 'status'
       value.forEach((element) {
-        print(element['status']);
+        // print(element['status']);
 
         if (element['status'] == 'new')
           newTasks!.add(element);
@@ -155,6 +155,19 @@ class AppCubit extends Cubit<AppStates> {
       //? why using get here => video #87 | min 18
       getDataFromDatabase(database);
       emit(AppUpdateDatabaseState());
+    });
+  }
+
+  //*delete data
+  void deleteData({
+    required int id,
+  }) async {
+    database!.rawDelete(
+      'DELETE FROM tasks WHERE id = ?',
+      [id],
+    ).then((value) {
+      getDataFromDatabase(database);
+      emit(AppDeleteDatabaseState());
     });
   }
 

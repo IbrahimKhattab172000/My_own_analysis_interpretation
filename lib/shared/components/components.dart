@@ -62,61 +62,116 @@ Widget defaultTextFormField({
       ),
     );
 
-Widget buildTaskItem(Map model, BuildContext context) => Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 40.0,
-            child: Text('${model['time']}'),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Column(
-              ///haha try it without mainAxisSize: MainAxisSize.min,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${model['title']}',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+Widget buildTaskItem(Map model, BuildContext context) => Dismissible(
+      //*key takes a Key() and Key() takes string type
+      key: Key(model['id'].toString()),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 40.0,
+              child: Text('${model['time']}'),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                ///haha try it without mainAxisSize: MainAxisSize.min,
+
+                mainAxisSize: MainAxisSize.min,
+
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  Text(
+                    '${model['title']}',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  '${model['date']}',
-                  style: TextStyle(
-                    color: Colors.grey,
+                  Text(
+                    '${model['date']}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          IconButton(
-            onPressed: () {
-              AppCubit.get(context).updateData(status: 'done', id: model['id']);
-            },
-            icon: Icon(
-              Icons.check_box,
-              color: Colors.green,
+            SizedBox(
+              width: 20,
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              AppCubit.get(context)
-                  .updateData(status: 'archived', id: model['id']);
-            },
-            icon: Icon(
-              Icons.archive,
-              color: Colors.grey,
+            IconButton(
+              onPressed: () {
+                AppCubit.get(context)
+                    .updateData(status: 'done', id: model['id']);
+              },
+              icon: Icon(
+                Icons.check_box,
+                color: Colors.green,
+              ),
             ),
-          ),
-        ],
+            IconButton(
+              onPressed: () {
+                AppCubit.get(context)
+                    .updateData(status: 'archived', id: model['id']);
+              },
+              icon: Icon(
+                Icons.archive,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
       ),
+      //*onDismissed
+      onDismissed: (direction) {
+        AppCubit.get(context).deleteData(id: model['id']);
+      },
     );
+
+//* cuz we will use it in 3 different pages, so why not making it reusable
+Widget taskBuilder({
+  List<Map>? tasks,
+}) {
+  return tasks!.isEmpty
+      ? Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.menu,
+                size: 100,
+                color: Colors.grey,
+              ),
+              Text(
+                "No tasks yet, please add some tasks!",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        )
+      : ListView.separated(
+          itemBuilder: (context, index) => buildTaskItem(tasks[index], context),
+          separatorBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsetsDirectional.only(
+                start: 20.0,
+              ),
+              child: Container(
+                width: double.infinity,
+                height: 1.0,
+                color: Colors.grey[300],
+              ),
+            );
+          },
+          itemCount: tasks.length,
+        );
+}

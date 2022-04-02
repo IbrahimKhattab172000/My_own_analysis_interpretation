@@ -25,23 +25,7 @@ class _NewTasksScreenState extends State<NewTasksScreen> {
         builder: (context, state) {
           //*Getting our newTasks here
           var tasks = AppCubit.get(context).newTasks;
-          return ListView.separated(
-            itemBuilder: (context, index) =>
-                buildTaskItem(tasks![index], context),
-            separatorBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsetsDirectional.only(
-                  start: 20.0,
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: 1.0,
-                  color: Colors.grey[300],
-                ),
-              );
-            },
-            itemCount: tasks!.length,
-          );
+          return taskBuilder(tasks: tasks);
         });
   }
 }
