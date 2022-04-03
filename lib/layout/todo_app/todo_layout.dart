@@ -1,16 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, prefer_typing_uninitialized_variables, must_be_immutable
 
 import 'package:abdullah_mansour/shared/components/components.dart';
-import 'package:abdullah_mansour/shared/components/constants.dart';
 import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:abdullah_mansour/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqflite.dart';
 
-class HomeLayout extends StatelessWidget {
-  HomeLayout({Key? key}) : super(key: key);
+class TodoLayout extends StatelessWidget {
+  TodoLayout({Key? key}) : super(key: key);
 
   //*just to use it down there in createDatabase() & to see it in insertToDatabase() and generally
 

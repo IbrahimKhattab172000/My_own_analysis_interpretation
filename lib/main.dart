@@ -1,11 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:abdullah_mansour/layout/home_layout.dart';
+import 'package:abdullah_mansour/layout/news_app/news_layout.dart';
 import 'package:abdullah_mansour/shared/bloc_observer.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-
-import 'modules/counter/counter_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   BlocOverrides.runZoned(
@@ -23,7 +22,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeLayout(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          // backwardsCompatibility: false,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarBrightness: Brightness.dark,
+          ),
+          color: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.deepOrange,
+          elevation: 20.0,
+        ),
+      ),
+      home: NewsLayout(),
     );
   }
 }
