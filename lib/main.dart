@@ -2,11 +2,14 @@
 
 import 'package:abdullah_mansour/layout/news_app/news_layout.dart';
 import 'package:abdullah_mansour/shared/bloc_observer.dart';
+import 'package:abdullah_mansour/shared/network/remote/dio_helper.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+  DioHelper.init();
+
   BlocOverrides.runZoned(
     () {
       runApp(MyApp());
@@ -25,6 +28,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
         appBarTheme: AppBarTheme(
           // backwardsCompatibility: false,
           systemOverlayStyle: SystemUiOverlayStyle(
