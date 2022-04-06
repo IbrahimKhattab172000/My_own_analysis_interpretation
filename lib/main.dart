@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
         scaffoldBackgroundColor: Colors.white,
         floatingActionButtonTheme:
             FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
@@ -51,7 +52,11 @@ class MyApp extends StatelessWidget {
           elevation: 20.0,
         ),
       ),
-      home: NewsLayout(),
+      home: Directionality(
+        //*We change the text dirextion here
+        textDirection: TextDirection.rtl,
+        child: NewsLayout(),
+      ),
     );
   }
 }

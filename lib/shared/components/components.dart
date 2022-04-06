@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
@@ -161,17 +161,85 @@ Widget taskBuilder({
       : ListView.separated(
           itemBuilder: (context, index) => buildTaskItem(tasks[index], context),
           separatorBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsetsDirectional.only(
-                start: 20.0,
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 1.0,
-                color: Colors.grey[300],
-              ),
-            );
+            return myDivider();
           },
           itemCount: tasks.length,
         );
+}
+
+Widget buildArticleItem(article) {
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        Container(
+          width: 120,
+          height: 120,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              image: NetworkImage(
+                '${article['urlToImage']}',
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          child: Container(
+            height: 120,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    '${article['title']}',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Text(
+                  '${article['publishedAt']}',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget myDivider() {
+  return Padding(
+    padding: const EdgeInsetsDirectional.only(
+      start: 20.0,
+    ),
+    child: Container(
+      width: double.infinity,
+      height: 1.0,
+      color: Colors.grey[300],
+    ),
+  );
+}
+
+Widget articleBuilder({
+  list,
+}) {
+  return ListView.separated(
+    //*physics gives neat appearance
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (context, index) => buildArticleItem(list[index]),
+    separatorBuilder: (context, index) => myDivider(),
+    itemCount: list.length,
+  );
 }

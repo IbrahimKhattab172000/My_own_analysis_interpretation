@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_is_empty, curly_braces_in_flow_control_structures
 
 import 'package:abdullah_mansour/layout/news_app/cubit/states.dart';
 import 'package:abdullah_mansour/modules/business/business_screen.dart';
@@ -11,10 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsCubit extends Cubit<NewsStates> {
-  NewsCubit() : super(NewSInitialState());
+  NewsCubit() : super(NewsInitialState());
 
   static NewsCubit get(context) => BlocProvider.of(context);
 
+//*Bottom nav bar stuff
   int currentIndex = 0;
 
   List<BottomNavigationBarItem> bottomItems = [
@@ -45,31 +46,101 @@ class NewsCubit extends Cubit<NewsStates> {
 
   void changeBottomNavBar(int index) {
     currentIndex = index;
-    emit(NewSBottomNavState());
+    //* Getting the data for Sports and Science screens depending changing of the BottonNavBar
+    //!Notice (0) We could've avoided all of that by getting all of our data at once..
+    //!...in newsLayout screen like we get getBusiness() | go there and see
+    if (index == 1)
+      getSports();
+    else if (index == 2) getScience();
+
+    emit(NewsBottomNavState());
   }
 
+//* Business stuff
   List<dynamic> business = [];
-
+//! Associated with => Notice(0)
+//? Why I didn't make a if-else here as well like I did to the other funcs down there?
+//* Cuz we call this method once "in the newsLayout screen" but the others we call then everytime..
+//*... we press on the BottomNavBar.
+//*getBusines method
   void getBusiness() {
-    emit(NewSGetBusinessLoadingState());
+    emit(NewsGetBusinessLoadingState());
 
-    DioHelper.getData(
-      url: 'v2/top-headlines',
-      query: {
-        'country': 'eg',
-        'category': 'business',
-        'apiKey': '569a637cdf0b4880be27dbd2b2fc2a01',
-      },
-    ).then((value) {
-      // print(value.data['articles'][0]['title']);
-      business = value.data['articles'];
-      print(business[0]['title']);
+    if (business.length == 0) {
+      DioHelper.getData(
+        url: 'v2/top-headlines',
+        query: {
+          'country': 'eg',
+          'category': 'business',
+          'apiKey': '569a637cdf0b4880be27dbd2b2fc2a01',
+        },
+      ).then((value) {
+        business = value.data['articles'];
 
-      emit(NewSGetBusinessSuccessState());
-    }).catchError((error) {
-      print(error.toString());
+        emit(NewsGetBusinessSuccessState());
+      }).catchError((error) {
+        print(error.toString());
 
-      emit(NewSGetBusinessErrorState(error.toString()));
-    });
+        emit(NewsGetBusinessErrorState(error.toString()));
+      });
+    } else {
+      emit(NewsGetBusinessSuccessState());
+    }
+  }
+
+  //* Sports stuff
+  List<dynamic> sports = [];
+//*getSports method
+  void getSports() {
+    emit(NewsGetSportsLoadingState());
+//*To avoid redo it all again
+    if (sports.length == 0) {
+      DioHelper.getData(
+        url: 'v2/top-headlines',
+        query: {
+          'country': 'eg',
+          'category': 'sports',
+          'apiKey': '569a637cdf0b4880be27dbd2b2fc2a01',
+        },
+      ).then((value) {
+        sports = value.data['articles'];
+
+        emit(NewsGetSportsSuccessState());
+      }).catchError((error) {
+        print(error.toString());
+
+        emit(NewsGetSportsErrorState(error.toString()));
+      });
+    } else {
+      emit(NewsGetSportsSuccessState());
+    }
+  }
+
+  //*Science stuff
+  List<dynamic> science = [];
+//*getScience method
+  void getScience() {
+    emit(NewsGetScienceLoadingState());
+//*To avoid redo it all again
+    if (science.length == 0) {
+      DioHelper.getData(
+        url: 'v2/top-headlines',
+        query: {
+          'country': 'eg',
+          'category': 'science',
+          'apiKey': '569a637cdf0b4880be27dbd2b2fc2a01',
+        },
+      ).then((value) {
+        science = value.data['articles'];
+
+        emit(NewsGetScienceSuccessState());
+      }).catchError((error) {
+        print(error.toString());
+
+        emit(NewsGetScienceErrorState(error.toString()));
+      });
+    } else {
+      emit(NewsGetScienceSuccessState());
+    }
   }
 }
