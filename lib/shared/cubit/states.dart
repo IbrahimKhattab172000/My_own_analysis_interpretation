@@ -17,3 +17,6 @@ class AppUpdateDatabaseState extends AppStates {}
 class AppDeleteDatabaseState extends AppStates {}
 
 class AppChangeBottomSheetState extends AppStates {}
+
+//*Modes state
+class AppChangeModeState extends AppStates {}

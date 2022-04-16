@@ -167,7 +167,7 @@ Widget taskBuilder({
         );
 }
 
-Widget buildArticleItem(article) {
+Widget buildArticleItem(article, context) {
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
@@ -198,10 +198,7 @@ Widget buildArticleItem(article) {
                     '${article['title']}',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 Text(
@@ -234,11 +231,13 @@ Widget myDivider() {
 
 Widget articleBuilder({
   list,
+  //?I don't know why Abullah mansour used context parameter here instead of using the builder context
+  //context,
 }) {
   return ListView.separated(
     //*physics gives neat appearance
     physics: BouncingScrollPhysics(),
-    itemBuilder: (context, index) => buildArticleItem(list[index]),
+    itemBuilder: (context, index) => buildArticleItem(list[index], context),
     separatorBuilder: (context, index) => myDivider(),
     itemCount: list.length,
   );

@@ -4,6 +4,7 @@ import 'package:abdullah_mansour/modules/archived_tasks/archived_tasks_screen.da
 import 'package:abdullah_mansour/modules/done_tasks/done_tasks_screen.dart';
 import 'package:abdullah_mansour/modules/new_tasks/new_tasks_screen.dart';
 import 'package:abdullah_mansour/shared/cubit/states.dart';
+import 'package:abdullah_mansour/shared/network/local/cache_helper.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -182,5 +183,31 @@ class AppCubit extends Cubit<AppStates> {
     isBottomSheetShown = isShow;
     fabIcon = icon;
     emit(AppChangeBottomSheetState());
+  }
+
+  //* For toggling between the Modes
+
+  bool isDark = false;
+
+//!We use this method twice, 1: when the user presses on the icon
+//!...that toggles between the dark and light(and at this time we don't pass value to fromShared)...
+//!  (SOOOOO!!! fromShared would be "null")
+//! 2:Check it out in main.dart especially MyApp class(and there we pass a value to fromShared)
+  void changeAppMode({bool? fromShared}) {
+    //? خخخ Notice the cache mostely has a value inside i, so how fromShared would be null?
+    //* The answer=> is that {it depends on us nit the cache cuz we don't pass value to fromShared}
+    //!when the user presses on the icon
+//!...that toggles between the dark and light(and at this time we don't pass value to fromShared)...
+//!  (SOOOOO!!! fromShared would be "null")
+    if (fromShared != null) {
+      isDark = fromShared;
+      emit(AppChangeModeState());
+    } else {
+      isDark = !isDark;
+      //*Saving our changes using sharedPreferences
+      CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+        emit(AppChangeModeState());
+      });
+    }
   }
 }
