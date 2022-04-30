@@ -144,5 +144,31 @@ class NewsCubit extends Cubit<NewsStates> {
     }
   }
 
+  //*Sercah stuff
+  List<dynamic> search = [];
+//*getSearch method
+  void getSearch(String value) {
+    emit(NewsGetSearchLoadingState());
 
+    //*Making sure to delete everything everytime
+//? Why I commented it? => cuz we are not -adding- data to the list everytime rather we -put- data
+    // search = [];
+
+    DioHelper.getData(
+      url: 'v2/everything',
+      query: {
+        'q': '$value',
+        'apiKey': '569a637cdf0b4880be27dbd2b2fc2a01',
+      },
+    ).then((value) {
+      //?=> we -put- here
+      search = value.data['articles'];
+
+      emit(NewsGetSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+
+      emit(NewsGetSearchErrorState(error.toString()));
+    });
+  }
 }

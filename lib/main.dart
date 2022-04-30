@@ -17,13 +17,17 @@ import 'package:hexcolor/hexcolor.dart';
 void main() {
   BlocOverrides.runZoned(
     () async {
+      //*That one makes sure that everything is done before opening the app
       WidgetsFlutterBinding.ensureInitialized();
+      //*Initiating our helpers
       DioHelper.init();
       await CacheHelper.init();
-      //*Getting our data from the cache "sharedPreferance"
+
+      //*Getting our data from the cache "sharedPreferance" and save it in isDark to utilize it luego
       bool? isDrak = CacheHelper.getBoolean(key: "isDark");
 
       runApp(MyApp(
+        //* passing isDark from cache to isDark to use it inside MyApp()
         isDark: isDrak,
       ));
     },
@@ -39,10 +43,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      //*Passing isDrak value to fromShared
-      create: (BuildContext context) =>
-          AppCubit()..changeAppMode(fromShared: isDark),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          //*Calling getBusiness
+//! Associated with Notice(0)..we could have do the following to get it all at once
+// create: (context) => NewsCubit()..getBusiness()..getSports()..getScience(),
+          create: (context) => NewsCubit()..getBusiness(),
+        ),
+        BlocProvider(
+          //*Passing isDrak(which is from cache) value to fromShared to get the...
+          //*...last value once opening the app again
+          create: (BuildContext context) =>
+              AppCubit()..changeAppMode(fromShared: isDark),
+        ),
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {

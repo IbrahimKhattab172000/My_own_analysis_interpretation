@@ -194,8 +194,8 @@ class AppCubit extends Cubit<AppStates> {
 //!  (SOOOOO!!! fromShared would be "null")
 //! 2:Check it out in main.dart especially MyApp class(and there we pass a value to fromShared)
   void changeAppMode({bool? fromShared}) {
-    //? خخخ Notice the cache mostely has a value inside i, so how fromShared would be null?
-    //* The answer=> is that {it depends on us nit the cache cuz we don't pass value to fromShared}
+    //? خخخ Notice the cache mostly has a value inside i, so how fromShared would be null?
+    //* The answer=> is that {it depends on us not the cache cuz we don't pass value to fromShared}
     //!when the user presses on the icon
 //!...that toggles between the dark and light(and at this time we don't pass value to fromShared)...
 //!  (SOOOOO!!! fromShared would be "null")

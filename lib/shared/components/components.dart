@@ -242,3 +242,8 @@ Widget articleBuilder({
     itemCount: list.length,
   );
 }
+
+void navigateTo({context, widget}) => Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => widget),
+    );

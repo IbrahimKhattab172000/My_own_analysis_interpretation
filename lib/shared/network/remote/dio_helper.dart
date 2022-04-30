@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 
-// https://newsapi.org/v2/top-headlines?country=eg&category=sports
-// &apiKey=569a637cdf0b4880be27dbd2b2fc2a01
 class DioHelper {
   static Dio? dio;
 
