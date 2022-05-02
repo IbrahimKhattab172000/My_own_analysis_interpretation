@@ -47,24 +47,27 @@ class SearchScreen extends StatelessWidget {
                   prefix: Icons.search,
                 ),
               ),
-              list.isNotEmpty
-                  ? Expanded(
-                      child: articleBuilder(
-                        //*Showing our list here in that articleBuilder
-                        list: list,
-                      ),
-                    )
-                  : Center(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: LinearProgressIndicator(),
-                          ),
-                          Text("Waiting ..."),
-                        ],
-                      ),
-                    ),
+              // list.isNotEmpty
+              //     ?
+              Expanded(
+                child: articleBuilder(
+                  //*Showing our list here in that articleBuilder
+                  list: list,
+                  isSearch: true,
+                ),
+              )
+              // :
+              // Center(
+              //     child: Column(
+              //       children: [
+              //         Padding(
+              //           padding: const EdgeInsets.all(8.0),
+              //           child: LinearProgressIndicator(),
+              //         ),
+              //         Text("Waiting ..."),
+              //       ],
+              //     ),
+              //   ),
             ],
           ),
         );

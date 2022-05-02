@@ -3,7 +3,6 @@
 import 'package:abdullah_mansour/layout/news_app/cubit/states.dart';
 import 'package:abdullah_mansour/modules/business/business_screen.dart';
 import 'package:abdullah_mansour/modules/science/science_screen.dart';
-import 'package:abdullah_mansour/modules/settings_Screen/settings_screen.dart';
 import 'package:abdullah_mansour/modules/sports/sports_screen.dart';
 import 'package:abdullah_mansour/shared/network/remote/dio_helper.dart';
 import 'package:flutter/cupertino.dart';

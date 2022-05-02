@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
+import 'package:abdullah_mansour/modules/web_view/web_view_screen.dart';
 import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -168,50 +169,58 @@ Widget taskBuilder({
 }
 
 Widget buildArticleItem(article, context) {
-  return Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Row(
-      children: [
-        Container(
-          width: 120,
-          height: 120,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: NetworkImage(
-                '${article['urlToImage']}',
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(width: 10),
-        Expanded(
-          child: Container(
+  return InkWell(
+    onTap: () {
+      navigateTo(
+        context: context,
+        widget: WebViewScreen(url: article['url']),
+      );
+    },
+    child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          Container(
+            width: 120,
             height: 120,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    '${article['title']}',
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: NetworkImage(
+                  '${article['urlToImage']}',
                 ),
-                Text(
-                  '${article['publishedAt']}',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        )
-      ],
+          SizedBox(width: 10),
+          Expanded(
+            child: Container(
+              height: 120,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${article['title']}',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
+                  Text(
+                    '${article['publishedAt']}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     ),
   );
 }
@@ -233,14 +242,28 @@ Widget articleBuilder({
   list,
   //?I don't know why Abullah mansour used context parameter here instead of using the builder context
   //context,
+  //*We're using this articleBuilder in many spots, so this isSearch will be set as true if..
+  //* ... we're in the SerachScreen to do something accordingly
+  isSearch = false,
 }) {
-  return ListView.separated(
-    //*physics gives neat appearance
-    physics: BouncingScrollPhysics(),
-    itemBuilder: (context, index) => buildArticleItem(list[index], context),
-    separatorBuilder: (context, index) => myDivider(),
-    itemCount: list.length,
-  );
+  return list.length > 0
+      ? ListView.separated(
+          //*physics gives neat appearance
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) =>
+              buildArticleItem(list[index], context),
+
+          separatorBuilder: (context, index) => myDivider(),
+          itemCount: list.length,
+        )
+      : isSearch
+          ? Container()
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: LinearProgressIndicator(),
+              ),
+            );
 }
 
 void navigateTo({context, widget}) => Navigator.push(
