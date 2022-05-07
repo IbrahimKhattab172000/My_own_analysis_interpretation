@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, curly_braces_in_flow_control_structures
+// ignore_for_file: prefer_const_constructors, avoid_print, curly_braces_in_flow_control_structures, unnecessary_string_interpolations
 
-import 'package:abdullah_mansour/modules/archived_tasks/archived_tasks_screen.dart';
-import 'package:abdullah_mansour/modules/done_tasks/done_tasks_screen.dart';
-import 'package:abdullah_mansour/modules/new_tasks/new_tasks_screen.dart';
+import 'package:abdullah_mansour/modules/todo_app/archived_tasks/archived_tasks_screen.dart';
+import 'package:abdullah_mansour/modules/todo_app/done_tasks/done_tasks_screen.dart';
+import 'package:abdullah_mansour/modules/todo_app/new_tasks/new_tasks_screen.dart';
 import 'package:abdullah_mansour/shared/cubit/states.dart';
 import 'package:abdullah_mansour/shared/network/local/cache_helper.dart';
 import 'package:bloc/bloc.dart';

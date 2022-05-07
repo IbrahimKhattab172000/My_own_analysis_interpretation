@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, prefer_is_empty, curly_braces_in_flow_control_structures
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_is_empty, curly_braces_in_flow_control_structures, unnecessary_string_interpolations
 
 import 'package:abdullah_mansour/layout/news_app/cubit/states.dart';
-import 'package:abdullah_mansour/modules/business/business_screen.dart';
-import 'package:abdullah_mansour/modules/science/science_screen.dart';
-import 'package:abdullah_mansour/modules/sports/sports_screen.dart';
+import 'package:abdullah_mansour/modules/news_app/business/business_screen.dart';
+import 'package:abdullah_mansour/modules/news_app/science/science_screen.dart';
+import 'package:abdullah_mansour/modules/news_app/sports/sports_screen.dart';
 import 'package:abdullah_mansour/shared/network/remote/dio_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

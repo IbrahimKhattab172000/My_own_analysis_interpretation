@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_constructors_in_immutables
 
-import 'package:abdullah_mansour/modules/counter/cubit/cubit.dart';
-import 'package:abdullah_mansour/modules/counter/cubit/states.dart';
+import 'package:abdullah_mansour/modules/counter_app/counter/cubit/cubit.dart';
+import 'package:abdullah_mansour/modules/counter_app/counter/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:abdullah_mansour/layout/news_app/cubit/cubit.dart';
 import 'package:abdullah_mansour/layout/news_app/cubit/states.dart';
-import 'package:abdullah_mansour/modules/search/search_screen.dart';
+import 'package:abdullah_mansour/modules/news_app/search/search_screen.dart';
 import 'package:abdullah_mansour/shared/components/components.dart';
 import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';

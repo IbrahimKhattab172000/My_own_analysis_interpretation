@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
-import 'package:abdullah_mansour/modules/web_view/web_view_screen.dart';
+import 'package:abdullah_mansour/modules/news_app/web_view/web_view_screen.dart';
 import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 

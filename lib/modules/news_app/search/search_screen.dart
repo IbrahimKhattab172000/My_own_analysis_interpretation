@@ -3,7 +3,6 @@
 import 'package:abdullah_mansour/layout/news_app/cubit/cubit.dart';
 import 'package:abdullah_mansour/layout/news_app/cubit/states.dart';
 import 'package:abdullah_mansour/shared/components/components.dart';
-import 'package:abdullah_mansour/shared/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

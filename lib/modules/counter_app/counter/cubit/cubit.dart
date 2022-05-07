@@ -1,4 +1,4 @@
-import 'package:abdullah_mansour/modules/counter/cubit/states.dart';
+import 'package:abdullah_mansour/modules/counter_app/counter/cubit/states.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
