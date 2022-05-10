@@ -5,7 +5,6 @@ import 'package:abdullah_mansour/modules/news_app/business/business_screen.dart'
 import 'package:abdullah_mansour/modules/news_app/science/science_screen.dart';
 import 'package:abdullah_mansour/modules/news_app/sports/sports_screen.dart';
 import 'package:abdullah_mansour/shared/network/remote/dio_helper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

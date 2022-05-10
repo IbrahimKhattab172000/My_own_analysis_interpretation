@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'colors.dart';
+
 ThemeData darkTheme = ThemeData(
-  primarySwatch: Colors.deepOrange,
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: HexColor("333739"),
   floatingActionButtonTheme:
       FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
@@ -22,6 +24,7 @@ ThemeData darkTheme = ThemeData(
       color: Colors.white,
       fontSize: 20,
       fontWeight: FontWeight.bold,
+      fontFamily: "Dosis",
     ),
     titleSpacing: 20,
   ),
@@ -37,12 +40,14 @@ ThemeData darkTheme = ThemeData(
       fontSize: 18,
       fontWeight: FontWeight.w600,
       color: Colors.white,
+      fontFamily: "BebasNeue",
     ),
   ),
+  fontFamily: "Dosis",
 );
 
 ThemeData lightTheme = ThemeData(
-  primarySwatch: Colors.deepOrange,
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.white,
   floatingActionButtonTheme:
       FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
@@ -59,6 +64,7 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
       fontSize: 20,
       fontWeight: FontWeight.bold,
+      fontFamily: "Dosis",
     ),
     titleSpacing: 20,
   ),
@@ -75,4 +81,5 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
     ),
   ),
+  fontFamily: "Dosis",
 );
