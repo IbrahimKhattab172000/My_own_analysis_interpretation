@@ -16,6 +16,10 @@ Widget defaultButton({
     Container(
       width: width,
       height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius + 10),
+        color: background,
+      ),
       child: MaterialButton(
         onPressed: function,
         child: Text(
@@ -23,10 +27,15 @@ Widget defaultButton({
           style: TextStyle(color: Colors.white),
         ),
       ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius + 10),
-        color: background,
-      ),
+    );
+
+Widget defaultTextButton({
+  required String text,
+  required VoidCallback onPress,
+}) =>
+    TextButton(
+      onPressed: onPress,
+      child: Text(text.toUpperCase()),
     );
 
 Widget defaultTextFormField({
@@ -266,12 +275,17 @@ Widget articleBuilder({
             );
 }
 
-void navigateTo({context, widget}) => Navigator.push(
+void navigateTo({
+  required context,
+  required widget,
+}) =>
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => widget),
     );
 
-void navigateAndFinish({context, widget}) => Navigator.pushAndRemoveUntil(
+void navigateAndFinish({required context, required widget}) =>
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => widget),
       (Route<dynamic> route) => false,

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
 import 'package:abdullah_mansour/modules/shop_app/login/shop_login_screen.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 widget: ShopLoginScreen(),
               );
             },
-            child: Text("SKIP"),
+            child: defaultTextButton(
+                text: "Skip",
+                onPress: () {
+                  navigateAndFinish(
+                    context: context,
+                    widget: ShopLoginScreen(),
+                  );
+                }),
           ),
         ],
       ),

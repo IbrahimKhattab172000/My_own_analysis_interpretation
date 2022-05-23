@@ -9,8 +9,8 @@ import 'colors.dart';
 ThemeData darkTheme = ThemeData(
   primarySwatch: defaultColor,
   scaffoldBackgroundColor: HexColor("333739"),
-  floatingActionButtonTheme:
-      FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
+  // floatingActionButtonTheme:
+  //     FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
   appBarTheme: AppBarTheme(
     // backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
@@ -49,8 +49,8 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme = ThemeData(
   primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.white,
-  floatingActionButtonTheme:
-      FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
+  // floatingActionButtonTheme:
+  //     FloatingActionButtonThemeData(backgroundColor: Colors.deepOrange),
   appBarTheme: AppBarTheme(
     // backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(

@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   var formKey = GlobalKey<FormState>();
 
-  ///hkhkhkh Look yasta don't forget and put it after the [Widget build(BuildContext context]
+  //!hkhkhkh Look yasta don't forget and put it after the [Widget build(BuildContext context]
   bool isPassword = true;
 
   @override
@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (formKey.currentState!.validate()) {
                         return "Email address must not be empty";
                       }
+                      return "";
                     },
                     lable: "Email Address",
                     prefix: Icons.email,
@@ -71,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (formKey.currentState!.validate()) {
                         return "Password must not be empty";
                       }
+                      return "";
                     },
 
                     ///This suffixPressed we will be passed to the IconButton's onPress
